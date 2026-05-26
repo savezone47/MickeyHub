@@ -1,3 +1,124 @@
+local function openHub()
+    -- ================= KEY SYSTEM =================
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local VALID_KEY = "MICKEY2026"
+
+local KeyGui = Instance.new("ScreenGui")
+KeyGui.Name = "MickeyKeySystem"
+KeyGui.Parent = player:WaitForChild("PlayerGui")
+
+local Main = Instance.new("Frame")
+Main.Size = UDim2.new(0, 420, 0, 240)
+Main.Position = UDim2.new(0.5, -210, 0.5, -120)
+Main.BackgroundColor3 = Color3.fromRGB(18,18,25)
+Main.BorderSizePixel = 0
+Main.Parent = KeyGui
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0,12)
+UICorner.Parent = Main
+
+local Stroke = Instance.new("UIStroke")
+Stroke.Color = Color3.fromRGB(70,120,255)
+Stroke.Thickness = 2
+Stroke.Parent = Main
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1,0,0,50)
+Title.BackgroundTransparency = 1
+Title.Text = "MICKEY HUB KEY SYSTEM"
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 22
+Title.TextColor3 = Color3.new(1,1,1)
+Title.Parent = Main
+
+local KeyBox = Instance.new("TextBox")
+KeyBox.Size = UDim2.new(0,360,0,45)
+KeyBox.Position = UDim2.new(0.5,-180,0,80)
+KeyBox.PlaceholderText = "Enter Key..."
+KeyBox.Text = ""
+KeyBox.Font = Enum.Font.Gotham
+KeyBox.TextSize = 18
+KeyBox.TextColor3 = Color3.new(1,1,1)
+KeyBox.BackgroundColor3 = Color3.fromRGB(30,30,40)
+KeyBox.Parent = Main
+
+local KeyCorner = Instance.new("UICorner")
+KeyCorner.CornerRadius = UDim.new(0,8)
+KeyCorner.Parent = KeyBox
+
+local CheckBtn = Instance.new("TextButton")
+CheckBtn.Size = UDim2.new(0,170,0,45)
+CheckBtn.Position = UDim2.new(0,30,0,150)
+CheckBtn.Text = "CHECK KEY"
+CheckBtn.Font = Enum.Font.GothamBold
+CheckBtn.TextSize = 18
+CheckBtn.TextColor3 = Color3.new(1,1,1)
+CheckBtn.BackgroundColor3 = Color3.fromRGB(50,120,255)
+CheckBtn.Parent = Main
+
+local BtnCorner = Instance.new("UICorner")
+BtnCorner.CornerRadius = UDim.new(0,8)
+BtnCorner.Parent = CheckBtn
+
+local GetKeyBtn = Instance.new("TextButton")
+GetKeyBtn.Size = UDim2.new(0,170,0,45)
+GetKeyBtn.Position = UDim2.new(0,220,0,150)
+GetKeyBtn.Text = "GET KEY"
+GetKeyBtn.Font = Enum.Font.GothamBold
+GetKeyBtn.TextSize = 18
+GetKeyBtn.TextColor3 = Color3.new(1,1,1)
+GetKeyBtn.BackgroundColor3 = Color3.fromRGB(90,90,90)
+GetKeyBtn.Parent = Main
+
+local GetCorner = Instance.new("UICorner")
+GetCorner.CornerRadius = UDim.new(0,8)
+GetCorner.Parent = GetKeyBtn
+
+local Status = Instance.new("TextLabel")
+Status.Size = UDim2.new(1,0,0,30)
+Status.Position = UDim2.new(0,0,1,-35)
+Status.BackgroundTransparency = 1
+Status.Text = ""
+Status.Font = Enum.Font.Gotham
+Status.TextSize = 16
+Status.TextColor3 = Color3.new(1,1,1)
+Status.Parent = Main
+
+-- เปิดลิงก์รับคีย์
+GetKeyBtn.MouseButton1Click:Connect(function()
+    setclipboard("https://yourlink.com")
+    Status.Text = "Link copied!"
+    Status.TextColor3 = Color3.fromRGB(0,255,120)
+end)
+
+-- เช็คคีย์
+local KeyCorrect = false
+
+CheckBtn.MouseButton1Click:Connect(function()
+
+    if KeyBox.Text == VALID_KEY then
+        KeyCorrect = true
+
+        Status.Text = "Access Granted"
+        Status.TextColor3 = Color3.fromRGB(0,255,120)
+
+        wait(1)
+
+        KeyGui:Destroy()
+
+        -- เปิด HUB ตรงนี้
+
+    else
+        Status.Text = "Invalid Key"
+        Status.TextColor3 = Color3.fromRGB(255,70,70)
+    end
+end)
+
+repeat wait() until KeyCorrect
 -- Utility GUI (Rectangular design, smooth, shadow teleport)
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
@@ -537,8 +658,30 @@ player.CharacterAdded:Connect(function(newChar)
     character = newChar
     rootPart = newChar:WaitForChild("HumanoidRootPart")
     humanoid = newChar:WaitForChild("Humanoid")
-    -- remove shadow on death/respawn (comment out to persist)
+    
     shadowCFrame = nil
     shadowPlaced = false
     removeShadowMarker()
 end)
+
+
+    local KeyCorrect = false
+
+    CheckBtn.MouseButton1Click:Connect(function()
+        if KeyBox.Text == VALID_KEY then
+            KeyCorrect = true
+            Status.Text = "Access Granted"
+            Status.TextColor3 = Color3.fromRGB(0,255,120)
+            wait(1)
+            KeyGui:Destroy()
+            
+           
+        else
+            Status.Text = "Invalid Key"
+            Status.TextColor3 = Color3.fromRGB(255,70,70)
+        end
+    end)
+end
+
+
+openHub()
