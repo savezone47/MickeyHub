@@ -4,7 +4,7 @@ local function openHub()
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
-local VALID_KEY = "mondum"
+local VALID_KEY = "1"
 
 local KeyGui = Instance.new("ScreenGui")
 KeyGui.Name = "MickeyKeySystem"
